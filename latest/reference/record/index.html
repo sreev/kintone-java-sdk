@@ -136,7 +136,7 @@
       <div class="md-flex__cell md-flex__cell--stretch">
         <div class="md-flex__ellipsis md-header-nav__title"
             data-md-component="title">
-            <a href="../..">kintone Java SDK</a> <a style="text-decoration: underline;" href="../../versions">v0.5.1</a>
+            <a href="../..">kintone Java SDK</a> <a style="text-decoration: underline;" href="../../versions">v0.6.0</a>
         </div>
       </div>
  
@@ -525,6 +525,20 @@
           <li class="md-nav__item">
   <a href="#addallrecordsinteger-app-arraylisthashmapstring-fieldvalue6262-records" title="addAllRecords(Integer app, ArrayList&lt;HashMap&lt;String, FieldValue>> records)" class="md-nav__link">
     addAllRecords(Integer app, ArrayList&lt;HashMap&lt;String, FieldValue>> records)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upsertrecordapp-updatekey-record-revision" title="upsertRecord(app, updateKey, record, revision)" class="md-nav__link">
+    upsertRecord(app, updateKey, record, revision)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upsertrecordsapp-updatekey-records-revision" title="upsertRecords(app, updateKey, records, revision)" class="md-nav__link">
+    upsertRecords(app, updateKey, records, revision)
   </a>
   
 </li>
@@ -1172,6 +1186,20 @@
           <li class="md-nav__item">
   <a href="#addallrecordsinteger-app-arraylisthashmapstring-fieldvalue6262-records" title="addAllRecords(Integer app, ArrayList&lt;HashMap&lt;String, FieldValue>> records)" class="md-nav__link">
     addAllRecords(Integer app, ArrayList&lt;HashMap&lt;String, FieldValue>> records)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upsertrecordapp-updatekey-record-revision" title="upsertRecord(app, updateKey, record, revision)" class="md-nav__link">
+    upsertRecord(app, updateKey, record, revision)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upsertrecordsapp-updatekey-records-revision" title="upsertRecords(app, updateKey, records, revision)" class="md-nav__link">
+    upsertRecords(app, updateKey, records, revision)
   </a>
   
 </li>
@@ -2650,6 +2678,121 @@ try {
     //    KintoneAPIException
     //  ]
 }
+</pre>
+
+<p></details></p>
+<h3 id="upsertrecordapp-updatekey-record-revision">upsertRecord(app, updateKey, record, revision)</h3>
+<p><strong>Parameter</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>app</td>
+<td>Integer</td>
+<td>yes</td>
+<td>The kintone app ID</td>
+</tr>
+<tr>
+<td>updateKey</td>
+<td><a href="../model/record/record-model/#recordupdatekey">RecordUpdateKey</a></td>
+<td>yes</td>
+<td>The unique key of the record to be updated. About the format, please look the sample below or <a href="#reference">reference</a> at the end of this page.</td>
+</tr>
+<tr>
+<td>record</td>
+<td>HashMap&lt;String, <a href="../model/record/record-field-model#fieldvalue">FieldValue</a>></td>
+<td>yes</td>
+<td>The record data will be added to kintone app. About the format, please look the sample below or <a href="#reference">reference</a> at the end of this page.</td>
+</tr>
+<tr>
+<td>revision</td>
+<td>Integer</td>
+<td>(optional)</td>
+<td>The revision number of record</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Return</strong></p>
+<p><a href="../model/record/record-model/#addrecordresponse">AddRecordResponse</a> or <a href="../model/record/record-model/#updaterecordresponse">UpdateRecordResponse</a></p>
+<p><strong>Sample code</strong></p>
+<p><details class="tab-container" open>
+<Summary>Upsert record</Summary></p>
+<p><strong class="tab-name">Source code</strong></p>
+<pre class="inline-code">
+
+    Integer appID = {YOUR_APP_ID};
+    FieldValue fv = new FieldValue();
+    fv.setType(FieldType.SINGLE_LINE_TEXT);
+    fv.setValue( {YOUR_FIELD_VALUE} );
+
+    HashMap&lt;String, FieldValue&gt; record = new HashMap&lt;String, FieldValue&gt;();
+    record.put("title", fv);
+
+    RecordUpdateKey updateKey = new RecordUpdateKey("detail", "update 123");
+
+    kintoneRecordManager.upsertRecord(appID, updateKey, record, 1);
+
+</pre>
+
+<p></details></p>
+<h3 id="upsertrecordsapp-updatekey-records-revision">upsertRecords(app, updateKey, records, revision)</h3>
+<p><strong>Parameter</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>app</td>
+<td>Integer</td>
+<td>yes</td>
+<td>The kintone app ID</td>
+</tr>
+<tr>
+<td>records</td>
+<td>ArrayList&lt;<a href="../model/record/record-model/#recordupdateitem">RecordUpdateItem</a>></td>
+<td>yes</td>
+<td>The record data will be added to kintone app. About the format, please look the sample below or <a href="#reference">reference</a> at the end of this page.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Return</strong></p>
+<p><a href="../model/bulk-request/bulk-request-response">BulkRequestResponse</a></p>
+<p><strong>Sample code</strong></p>
+<p><details class="tab-container" open>
+<Summary>Upsert records</Summary></p>
+<p><strong class="tab-name">Source code</strong></p>
+<pre class="inline-code">
+
+    Integer appID = {YOUR_APP_ID};
+    ArrayList&lt;RecordsUpsertItem&gt; upsertRecords = new ArrayList&lt;RecordsUpsertItem&gt;();
+
+    ArrayList&lt;HashMap&lt;String, FieldValue&gt; &gt; records = new ArrayList&lt;HashMap&lt;String, FieldValue&gt; &gt;();
+
+    FieldValue fv = new FieldValue();
+    fv.setType(FieldType.SINGLE_LINE_TEXT);
+    fv.setValue("Title 123");
+
+    HashMap&lt;String, FieldValue&gt; record = new HashMap&lt;String, FieldValue&gt;();
+    record.put("title", fv);
+
+    RecordUpdateKey updateKey = new RecordUpdateKey("title", "update 123");
+
+    upsertRecords.add(new RecordsUpsertItem(updateKey, record));
+    kintoneRecordManager.upsertRecords(appID, upsertRecords);
+
 </pre>
 
 <p></details></p>
